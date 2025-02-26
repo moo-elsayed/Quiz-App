@@ -12,15 +12,27 @@ class TaskCubit extends Cubit<TaskStates> {
   TaskCubit() : super(TaskInitial());
   int currentIndex = 0;
   int score = 0;
-  Answer? _selectedAnswer;
+  Answer? selectedAnswer;
   List<Task> tasks = getTasks();
+  bool _check = false;
 
   void selectAnswer({required Answer answer}) {
-    _selectedAnswer = answer;
+    if (selectedAnswer == answer) {
+      selectedAnswer = null;
+    } else {
+      selectedAnswer = answer;
+    }
+
+    emit(TaskSelect());
+  }
+
+  void check() {
+    emit(TaskCheck());
+    _check = true;
   }
 
   void next({required BuildContext context}) {
-    if (_selectedAnswer == null) {
+    if (selectedAnswer == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('no selected answer'),
@@ -29,9 +41,15 @@ class TaskCubit extends Cubit<TaskStates> {
       return;
     }
 
-    if (_selectedAnswer!.isCorrect) score++;
-    log(_selectedAnswer!.isCorrect.toString());
-    _selectedAnswer = null;
+    if (_check == false) {
+      check();
+      return;
+    }
+
+    _check = false;
+    if (selectedAnswer!.isCorrect) score++;
+    log(selectedAnswer!.isCorrect.toString());
+    selectedAnswer = null;
 
     if (currentIndex != tasks.length - 1) {
       currentIndex++;

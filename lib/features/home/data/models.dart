@@ -3,6 +3,15 @@ class Task {
   final List<Answer> answers;
 
   const Task({required this.question, required this.answers});
+
+  factory Task.fromJson(Map<String, dynamic> json) {
+    return Task(
+      question: json['question'],
+      answers: (json['answers'] as List)
+          .map((answer) => Answer.fromJson(answer))
+          .toList(),
+    );
+  }
 }
 
 class Answer {
@@ -10,6 +19,13 @@ class Answer {
   final bool isCorrect;
 
   const Answer({required this.answer, required this.isCorrect});
+
+  factory Answer.fromJson(Map<String, dynamic> json) {
+    return Answer(
+      answer: json['answer'],
+      isCorrect: json['isCorrect'],
+    );
+  }
 }
 
 List<Task> getTasks() {

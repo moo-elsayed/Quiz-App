@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tasks_app/features/home/presentation/manager/task_cubit/task_cubit.dart';
+import 'package:tasks_app/features/home/presentation/widgets/answer_button.dart';
 
 import '../../data/models.dart';
 
@@ -39,28 +38,47 @@ class ButtonsBuilder extends StatelessWidget {
     //   ),
     // );
 
+    // return BlocBuilder<TaskCubit, TaskStates>(
+    //   builder: (context, state) => Column(
+    //     children: List.generate(
+    //       itemCount,
+    //       (index) {
+    //         return Padding(
+    //           padding: EdgeInsets.only(bottom: index == 3 ? 0 : 12),
+    //           child: ElevatedButton(
+    //             style: ElevatedButton.styleFrom(
+    //               minimumSize: Size(double.infinity, 0),
+    //               foregroundColor: Colors.black,
+    //               padding: EdgeInsets.all(16),
+    //               backgroundColor:
+    //                   BlocProvider.of<TaskCubit>(context).selectedAnswer ==
+    //                           answersList[index]
+    //                       ? Colors.white60
+    //                       : Colors.white,
+    //             ),
+    //             onPressed: () {
+    //               BlocProvider.of<TaskCubit>(context).selectAnswer(
+    //                 answer: answersList[index],
+    //               );
+    //             },
+    //             child: Text(
+    //               answersList[index].answer,
+    //               style: TextStyle(fontSize: 16),
+    //             ),
+    //           ),
+    //         );
+    //       },
+    //     ),
+    //   ),
+    // );
+
     return Column(
       children: List.generate(
         itemCount,
         (index) {
           return Padding(
             padding: EdgeInsets.only(bottom: index == 3 ? 0 : 12),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 0),
-                foregroundColor: Colors.black,
-                padding: EdgeInsets.all(16),
-              ),
-              onPressed: () {
-                BlocProvider.of<TaskCubit>(context).selectAnswer(
-                  answer: answersList[index],
-                );
-              },
-              child: Text(
-                answersList[index].answer,
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
+            child: AnswerButton(answer: answersList[index]),
           );
         },
       ),
