@@ -38,7 +38,7 @@ class _AnswerButtonState extends State<AnswerButton> {
       },
       builder: (context, state) => ElevatedButton(
         style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 0),
+          minimumSize: Size(MediaQuery.of(context).size.width * .75, 0),
           foregroundColor: Colors.black,
           padding: EdgeInsets.all(16),
           backgroundColor: color ??

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskCubit(),
+      create: (context) => TaskCubit()..loadTasks(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeView(),

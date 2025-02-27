@@ -19,35 +19,62 @@ class HomeViewBody extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: BlocBuilder<TaskCubit, TaskStates>(
-            builder: (context, state) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: media.height * .09,
-              children: [
-                Text(
-                  'Simple Quiz App',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                  ),
-                ),
-                QuestionTicket(
-                  question: cubit.tasks[cubit.currentIndex].question,
-                ),
-                ButtonsBuilder(
-                  answersList: cubit.tasks[cubit.currentIndex].answers,
-                  itemCount: cubit.tasks[cubit.currentIndex].answers.length,
-                ),
-                Button(
-                  text: cubit.currentIndex == cubit.tasks.length - 1
-                      ? 'Get Result'
-                      : 'Next',
-                  media: media,
-                  onPressed: () {
-                    cubit.next(context: context);
-                  },
-                ),
-              ],
-            ),
+            builder: (context, state) {
+              if (state is TaskGetListLoading) {
+                return Column(
+                  spacing: 20,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                    Text(
+                      'loading Questions',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    )
+                  ],
+                );
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: media.height * .07,
+                  children: [
+                    Text(
+                      'Simple Quiz App',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Question ${cubit.currentIndex + 1} / ${cubit.tasks.length}',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ],
+                    ),
+                    QuestionTicket(
+                      question: cubit.tasks[cubit.currentIndex].question,
+                    ),
+                    ButtonsBuilder(
+                      answersList: cubit.tasks[cubit.currentIndex].answers,
+                      itemCount: cubit.tasks[cubit.currentIndex].answers.length,
+                    ),
+                    Button(
+                      text: cubit.currentIndex == cubit.tasks.length - 1
+                          ? 'Get Result'
+                          : 'Next',
+                      media: media,
+                      onPressed: () {
+                        cubit.next(context: context);
+                      },
+                    ),
+                  ],
+                );
+              }
+            },
           ),
         ),
       ),

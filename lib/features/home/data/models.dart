@@ -1,32 +1,83 @@
+// class Task {
+//   final String question;
+//   final List<Answer> answers;
+//
+//   const Task({required this.question, required this.answers});
+//
+//   factory Task.fromJson(Map<String, dynamic> json) {
+//     return Task(
+//       question: json['question'],
+//       answers: (json['answers'] as List)
+//           .map((answer) => Answer.fromJson(answer))
+//           .toList(),
+//     );
+//   }
+// }
+//
+// class Answer {
+//   final String answer;
+//   final bool isCorrect;
+//
+//   const Answer({required this.answer, required this.isCorrect});
+//
+//   factory Answer.fromJson(Map<String, dynamic> json) {
+//     return Answer(
+//       answer: json['answer'],
+//       isCorrect: json['isCorrect'],
+//     );
+//   }
+// }
+
+// To parse this JSON data, do
+//
+//     final task = taskFromJson(jsonString);
+
+import 'dart:convert';
+
+List<Task> taskFromJson(String str) => List<Task>.from(json.decode(str).map((x) => Task.fromJson(x)));
+
+String taskToJson(List<Task> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class Task {
-  final String question;
-  final List<Answer> answers;
+  String question;
+  List<Answer> answers;
 
-  const Task({required this.question, required this.answers});
+  Task({
+    required this.question,
+    required this.answers,
+  });
 
-  factory Task.fromJson(Map<String, dynamic> json) {
-    return Task(
-      question: json['question'],
-      answers: (json['answers'] as List)
-          .map((answer) => Answer.fromJson(answer))
-          .toList(),
-    );
-  }
+  factory Task.fromJson(Map<String, dynamic> json) => Task(
+    question: json["question"],
+    answers: List<Answer>.from(json["answers"].map((x) => Answer.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "question": question,
+    "answers": List<dynamic>.from(answers.map((x) => x.toJson())),
+  };
 }
 
 class Answer {
-  final String answer;
-  final bool isCorrect;
+  String answer;
+  bool isCorrect;
 
-  const Answer({required this.answer, required this.isCorrect});
+  Answer({
+    required this.answer,
+    required this.isCorrect,
+  });
 
-  factory Answer.fromJson(Map<String, dynamic> json) {
-    return Answer(
-      answer: json['answer'],
-      isCorrect: json['isCorrect'],
-    );
-  }
+  factory Answer.fromJson(Map<String, dynamic> json) => Answer(
+    answer: json["answer"],
+    isCorrect: json["isCorrect"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "answer": answer,
+    "isCorrect": isCorrect,
+  };
 }
+
 
 List<Task> getTasks() {
   return [
