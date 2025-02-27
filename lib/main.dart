@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasks_app/features/home/presentation/manager/task_cubit/task_cubit.dart';
 import 'package:tasks_app/features/home/presentation/views/home_view.dart';
 import 'package:tasks_app/simple_bloc_observer.dart';
+import 'dart:math';
+import 'features/home/data/models.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -15,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskCubit()..loadTasks(),
+      create: (context) => TaskCubit()
+        ..loadTasks(category: categories[Random().nextInt(categories.length)]),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeView(),

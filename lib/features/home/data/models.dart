@@ -78,6 +78,19 @@ class Answer {
   };
 }
 
+List<String> categories = [
+  "Science",
+  "History",
+  "Sports",
+  "Geography",
+  "Entertainment",
+  "Technology",
+  "Literature",
+  "Art",
+  "Mathematics",
+  "Music"
+];
+
 
 List<Task> getTasks() {
   return [

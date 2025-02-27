@@ -7,8 +7,8 @@ import 'package:tasks_app/core/api_keys.dart';
 import '../features/home/data/models.dart';
 
 class GeminiService {
-  static Future<List<Task>> get() async {
-    GenerateContentResponse response = await apiCall();
+  static Future<List<Task>> get({required String category}) async {
+    GenerateContentResponse response = await apiCall(category: category);
 
     String cleanJson =
         response.text!.replaceAll("```json", "").replaceAll("```", "").trim();
@@ -18,14 +18,14 @@ class GeminiService {
   }
 }
 
-Future<GenerateContentResponse> apiCall() async {
+Future<GenerateContentResponse> apiCall({required String category}) async {
   final model = GenerativeModel(
     model: 'gemini-2.0-flash',
     apiKey: KApiKey,
   );
 
   final prompt = '''
-      Generate 5 general Hard knowledge questions in JSON format, each with exactly 4 possible answers and one correct answer. Use this structure:
+      Generate 5 $category Hard knowledge questions in JSON format, each with exactly 4 possible answers and one correct answer. Use this structure:
       [
     {
       "question": "What is the capital of France?",

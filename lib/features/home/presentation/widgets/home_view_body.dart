@@ -35,43 +35,45 @@ class HomeViewBody extends StatelessWidget {
                   ],
                 );
               } else {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: media.height * .07,
-                  children: [
-                    Text(
-                      'Simple Quiz App',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Question ${cubit.currentIndex + 1} / ${cubit.tasks.length}',
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                return SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: media.height * .07,
+                    children: [
+                      Text(
+                        'Simple Quiz App',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
                         ),
-                      ],
-                    ),
-                    QuestionTicket(
-                      question: cubit.tasks[cubit.currentIndex].question,
-                    ),
-                    ButtonsBuilder(
-                      answersList: cubit.tasks[cubit.currentIndex].answers,
-                      itemCount: cubit.tasks[cubit.currentIndex].answers.length,
-                    ),
-                    Button(
-                      text: cubit.currentIndex == cubit.tasks.length - 1
-                          ? 'Get Result'
-                          : 'Next',
-                      media: media,
-                      onPressed: () {
-                        cubit.next(context: context);
-                      },
-                    ),
-                  ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Question ${cubit.currentIndex + 1} / ${cubit.tasks.length}',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ],
+                      ),
+                      QuestionTicket(
+                        question: cubit.tasks[cubit.currentIndex].question,
+                      ),
+                      ButtonsBuilder(
+                        answersList: cubit.tasks[cubit.currentIndex].answers,
+                        itemCount: cubit.tasks[cubit.currentIndex].answers.length,
+                      ),
+                      Button(
+                        text: cubit.currentIndex == cubit.tasks.length - 1
+                            ? 'Get Result'
+                            : 'Next',
+                        media: media,
+                        onPressed: () {
+                          cubit.next(context: context);
+                        },
+                      ),
+                    ],
+                  ),
                 );
               }
             },

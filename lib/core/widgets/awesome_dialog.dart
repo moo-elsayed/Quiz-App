@@ -25,5 +25,6 @@ void showAwesomeDialog(
     btnCancelColor: Colors.green,
     btnCancelOnPress: cancelFun,
     btnCancelText: cancelText,
+    buttonsTextStyle: TextStyle(fontSize: 14,color: Colors.white),
   ).show();
 }
